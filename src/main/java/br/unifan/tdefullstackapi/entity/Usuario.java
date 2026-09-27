@@ -4,7 +4,9 @@
  */
 package br.unifan.tdefullstackapi.entity;
 
+import br.unifan.tdefullstackapi.config.jsonb.FieldAccessStrategy;
 import jakarta.json.bind.annotation.JsonbProperty;
+import jakarta.json.bind.annotation.JsonbVisibility;
 import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -35,6 +37,7 @@ import java.util.Collection;
     @NamedQuery(name = "Usuario.findByNomeUsuario", query = "SELECT u FROM Usuario u WHERE u.nomeUsuario = :nomeUsuario"),
     @NamedQuery(name = "Usuario.findByTipoUsuario", query = "SELECT u FROM Usuario u WHERE u.tipoUsuario = :tipoUsuario"),
     @NamedQuery(name = "Usuario.findBySenhaUsuario", query = "SELECT u FROM Usuario u WHERE u.senhaUsuario = :senhaUsuario")})
+@JsonbVisibility(FieldAccessStrategy.class)
 public class Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;

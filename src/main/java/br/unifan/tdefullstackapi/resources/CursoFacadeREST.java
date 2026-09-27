@@ -1,12 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package br.unifan.tdefullstackapi.resources;
 
 import jakarta.ejb.Stateless;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
+import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -19,73 +14,63 @@ import jakarta.ws.rs.core.MediaType;
 import java.util.List;
 
 import br.unifan.tdefullstackapi.entity.Curso;
+import br.unifan.tdefullstackapi.dao.CursoDAO;
 
-/**
- *
- * @author USER
- */
 @Stateless
-@Path("br.unifan.tdefullstackapi.curso")
-public class CursoFacadeREST extends AbstractFacade<Curso> {
+@Path("curso")
+public class CursoFacadeREST {
 
-    @PersistenceContext(unitName = "my_persistence_unit")
-    private EntityManager em;
+    @Inject
+    private CursoDAO cursoDAO; // Injeta o DAO de cursos separado
 
     public CursoFacadeREST() {
-        super(Curso.class);
     }
 
     @POST
-    @Override
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void create(Curso entity) {
-        super.create(entity);
+        cursoDAO.create(entity);
     }
 
     @PUT
     @Path("{id}")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void edit(@PathParam("id") Integer id, Curso entity) {
-        super.edit(entity);
+        // Supondo que sua entidade Curso use setIdCurso. Ajuste se o nome do método for diferente.
+        entity.setIdCurso(id); 
+        cursoDAO.edit(entity);
     }
 
     @DELETE
     @Path("{id}")
     public void remove(@PathParam("id") Integer id) {
-        super.remove(super.find(id));
+        cursoDAO.remove(id);
     }
 
     @GET
     @Path("{id}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Curso find(@PathParam("id") Integer id) {
-        return super.find(id);
+        return cursoDAO.find(id);
     }
 
     @GET
-    @Override
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public List<Curso> findAll() {
-        return super.findAll();
+        return cursoDAO.findAll();
     }
 
     @GET
     @Path("{from}/{to}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public List<Curso> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
-        return super.findRange(new int[]{from, to});
+        return cursoDAO.findRange(from, to);
     }
 
     @GET
     @Path("count")
     @Produces(MediaType.TEXT_PLAIN)
     public String countREST() {
-        return String.valueOf(super.count());
+        return cursoDAO.countREST();
     }
-
-    @Override
-    protected EntityManager getEntityManager() {
-        return em;
-    }
-    
 }

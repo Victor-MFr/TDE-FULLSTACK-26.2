@@ -123,7 +123,7 @@ public class Pdftemplate implements Serializable {
 
     @Override
     public String toString() {
-        return "br.unifan.tdefullstackapi.Pdftemplate[ idPdfTemplate=" + idPdfTemplate + " ]";
+        return "br.unifan.tdefullstackapi.PdfTemplate[ idPdfTemplate=" + idPdfTemplate + " ]";
     }
     
 }
