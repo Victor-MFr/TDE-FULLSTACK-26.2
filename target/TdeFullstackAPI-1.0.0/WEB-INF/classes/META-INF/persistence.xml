@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="3.0" 
+             xmlns="https://jakarta.ee" 
+             xmlns:xsi="http://w3.org" 
+             xsi:schemaLocation="https://jakarta.ee https://jakarta.ee/persistence_3_0.xsd">
+  
+  <!-- Configurado coßmo RESOURCE_LOCAL para conexão direta gerenciada pela aplicação -->
+  <persistence-unit name="my_persistence_unit" transaction-type="RESOURCE_LOCAL">
+    <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+    
+    <class>br.unifan.tdefullstackapi.entity.Usuario</class>
+    <class>br.unifan.tdefullstackapi.entity.Curso</class>
+    <class>br.unifan.tdefullstackapi.entity.Disciplina</class>
+    <class>br.unifan.tdefullstackapi.entity.Avaliacao</class>
+    <class>br.unifan.tdefullstackapi.entity.Pdftemplate</class>
+    <class>br.unifan.tdefullstackapi.entity.Questao</class>
+
+    <properties>
+      <!-- Driver JDBC do MySQL -->
+      <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+      
+      <!-- URL atualizada com o seu Schema tdeFullstack -->
+      <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/tdeFullstack?useSSL=false&amp;allowPublicKeyRetrieval=true&amp;serverTimezone=UTC"/>
+      <property name="jakarta.persistence.jdbc.user" value="root"/>
+      
+      <!-- INSIRA SUA SENHA DO MYSQL AQUI (se não houver senha, deixe value="") -->
+      <property name="jakarta.persistence.jdbc.password" value="root"/>
+
+      <!-- Dialeto e logs SQL -->
+      <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
+      <property name="hibernate.show_sql" value="true"/>
+      <property name="hibernate.format_sql" value="true"/>
+      
+      <!-- Mantém suas tabelas intactas sem apagá-las -->
+      <property name="jakarta.persistence.schema-generation.database.action" value="none"/>
+    </properties>
+  </persistence-unit>
+</persistence>
